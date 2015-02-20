@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BS15</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="sel_add_new_learning_data">Add new learning data</string>
+    <string name="sel_add_new_test_data">Add new test data</string>
+    <string name="reg_text">Text</string>
+    <string name="reg_save">Save</string>
+
+</resources>
