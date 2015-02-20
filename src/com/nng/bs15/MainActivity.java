@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction().add(R.id.container, new RegisterDatasFragment_()).commit();
+			getFragmentManager().beginTransaction().add(R.id.container, new SelectActionFragment_()).commit();
 		}
 	}
 

@@ -8,5 +8,6 @@
     <string name="sel_add_new_test_data">Add new test data</string>
     <string name="reg_text">Text</string>
     <string name="reg_save">Save</string>
+    <string name="bs15backstack">BS15BackStack</string>
 
 </resources>
