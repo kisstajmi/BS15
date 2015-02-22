@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import com.nng.bs15.R.layout;
 import org.androidannotations.api.builder.FragmentBuilder;
 import org.androidannotations.api.view.HasViews;
@@ -69,6 +70,9 @@ public final class SelectActionFragment_
     public void onViewChanged(HasViews hasViews) {
         sel_add_new_learning_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_learning_data));
         sel_add_new_test_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_test_data));
+        sel_server_port = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_port));
+        sel_server_ip = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_ip));
+        sel_start = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_start));
         if (sel_add_new_learning_data!= null) {
             sel_add_new_learning_data.setOnClickListener(new OnClickListener() {
 
@@ -83,6 +87,18 @@ public final class SelectActionFragment_
         }
         if (sel_add_new_test_data!= null) {
             sel_add_new_test_data.setOnClickListener(new OnClickListener() {
+
+
+                @Override
+                public void onClick(View view) {
+                    SelectActionFragment_.this.onClick(view);
+                }
+
+            }
+            );
+        }
+        if (sel_start!= null) {
+            sel_start.setOnClickListener(new OnClickListener() {
 
 
                 @Override

@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
+import android.widget.GridLayout;
 import com.nng.bs15.R.layout;
 import org.androidannotations.api.builder.FragmentBuilder;
 import org.androidannotations.api.view.HasViews;
@@ -54,6 +54,8 @@ public final class RegisterDatasFragment_
 
     private void init_(Bundle savedInstanceState) {
         OnViewChangedNotifier.registerOnViewChangedListener(this);
+        app = BS15Application_.getInstance();
+        afterInject();
     }
 
     @Override
@@ -68,9 +70,9 @@ public final class RegisterDatasFragment_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        reg_text = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.reg_text));
-        reg_keyboard = ((GridView) hasViews.findViewById(com.nng.bs15.R.id.reg_keyboard));
+        reg_keyboard = ((GridLayout) hasViews.findViewById(com.nng.bs15.R.id.reg_keyboard));
         reg_save = ((Button) hasViews.findViewById(com.nng.bs15.R.id.reg_save));
+        reg_text = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.reg_text));
         if (reg_save!= null) {
             reg_save.setOnClickListener(new OnClickListener() {
 

@@ -9,6 +9,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.nng.bs15.MainActivity$PlaceholderFragment" >
+    
+    
+    <EditText
+        android:id="@+id/sel_server_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_ip_address" />
+    <EditText
+        android:id="@+id/sel_server_port"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/server_port" />
 
     <Button
         android:id="@+id/sel_add_new_learning_data"
@@ -21,5 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sel_add_new_test_data" />
+    
+    <Button
+        android:id="@+id/sel_start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sel_start" />
 
 </LinearLayout>

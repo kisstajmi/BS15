@@ -5,8 +5,10 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="21" />
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".BS15Application_"
@@ -23,6 +25,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- service
+            android:name=".KeyboardServoce"
+            android:label="@string/keyboard_service"
+            android:permission="android.permission.BIND_INPUT_METHOD" >
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+        </service-->
+        <service
+            android:enabled="true"
+            android:name=".ServerCommunicationService_"
+            android:label="@string/server_communication_service"
+            android:permission="8android.permission.INTERNET" >
+        </service>
     </application>
 
 </manifest>

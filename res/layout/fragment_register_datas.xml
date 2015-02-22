@@ -15,12 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:hint="@string/reg_text"
+        android:inputType="textPassword"
+        android:enabled="false"
         android:layout_weight="1" />
 
-    <GridView
+    <GridLayout
         android:id="@+id/reg_keyboard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:columnCount="10"
         android:layout_weight="6" />
 
     <Button

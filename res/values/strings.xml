@@ -9,5 +9,13 @@
     <string name="reg_text">Text</string>
     <string name="reg_save">Save</string>
     <string name="bs15backstack">BS15BackStack</string>
+    <string name="keyboard_service">Keyboard Service</string>
+    <string name="subtype_en_US">English (US)</string>
+    <string name="server_ip_address">192.168.0.100</string>
+    <string name="server_port">9999</string>
+    <string name="sel_start">Start</string>
+    <string name="sel_server_ip_intent">server_ip</string>
+    <string name="sel_server_port_intent">server_port</string>
+    <string name="server_communication_service">Server Communication Service</string>
 
 </resources>
