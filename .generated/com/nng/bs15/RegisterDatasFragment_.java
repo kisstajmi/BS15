@@ -71,8 +71,8 @@ public final class RegisterDatasFragment_
     @Override
     public void onViewChanged(HasViews hasViews) {
         reg_keyboard = ((GridLayout) hasViews.findViewById(com.nng.bs15.R.id.reg_keyboard));
-        reg_save = ((Button) hasViews.findViewById(com.nng.bs15.R.id.reg_save));
         reg_text = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.reg_text));
+        reg_save = ((Button) hasViews.findViewById(com.nng.bs15.R.id.reg_save));
         if (reg_save!= null) {
             reg_save.setOnClickListener(new OnClickListener() {
 

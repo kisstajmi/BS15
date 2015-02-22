@@ -22,6 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
@@ -32,8 +33,8 @@ public class ServerCommunicationService extends IntentService {
 	private String	port		= "";
 	private String	serverIP	= "";
 	// private String testID = "NNG";
-	private String	testID		= "TEST1";
-	// private String testID = "TEST2";
+	// private String testID = "TEST1";
+	private String	testID		= "TEST2";
 	// private String testID = "TEST3";
 	// private String testID = "TEST4";
 	@App
@@ -155,16 +156,14 @@ public class ServerCommunicationService extends IntentService {
 		PatternValue max = new PatternValue(pvVector.get(0));
 		PatternValue min = new PatternValue(pvVector.get(0));
 		PatternValue avg = new PatternValue(pvVector.get(0));
+		pvVector.remove(0);
 		for (PatternValue act : pvVector) {
-			CalculateMaxMin(act.testTime, max.testTime, min.testTime, avg.testTime);
-			CalculateMaxMin(act.KeyPress, max.KeyPress, min.KeyPress, avg.KeyPress);
-			CalculateMaxMin(act.keyTime, max.keyTime, min.keyTime, avg.keyTime);
-			CalculateMaxMin(act.keyNum, max.keyNum, min.keyNum, avg.keyNum);
-			CalculateMaxMin(act.specNum, max.specNum, min.specNum, avg.specNum);
+			CalculateMaxMin(act, max, min, avg);
 		}
-		return DivideAvg(pvVector.size(), avg, min, max);
+		return DivideAvg(pvVector.size() + 1, avg, min, max);
 	}
 
+	@SuppressLint("UseValueOf")
 	private LearnedValue DivideAvg(int size, PatternValue avg, PatternValue min, PatternValue max) {
 		LearnedValue learnedValue = new LearnedValue();
 		float fsize = new Float(size);
@@ -182,13 +181,36 @@ public class ServerCommunicationService extends IntentService {
 		return learnedValue;
 	}
 
-	private void CalculateMaxMin(int act, int max, int min, int avg) {
-		if (act > max) {
-			max = act;
-		} else if (act < min) {
-			min = act;
-		}
-		avg += act;
+	private void CalculateMaxMin(PatternValue act, PatternValue max, PatternValue min, PatternValue avg) {
+		if (act.testTime > max.testTime)
+			max.testTime = act.testTime;
+		else if (act.testTime < min.testTime)
+			min.testTime = act.testTime;
+		avg.testTime += act.testTime;
+
+		if (act.keyNum > max.keyNum)
+			max.keyNum = act.keyNum;
+		else if (act.keyNum < min.keyNum)
+			min.keyNum = act.keyNum;
+		avg.keyNum += act.keyNum;
+
+		if (act.specNum > max.specNum)
+			max.specNum = act.specNum;
+		else if (act.specNum < min.specNum)
+			min.specNum = act.specNum;
+		avg.specNum += act.specNum;
+
+		if (act.KeyPress > max.KeyPress)
+			max.KeyPress = act.KeyPress;
+		else if (act.KeyPress < min.KeyPress)
+			min.KeyPress = act.KeyPress;
+		avg.KeyPress += act.KeyPress;
+
+		if (act.keyTime > max.keyTime)
+			max.keyTime = act.keyTime;
+		else if (act.keyTime < min.keyTime)
+			min.keyTime = act.keyTime;
+		avg.keyTime += act.keyTime;
 	}
 
 	private PatternValue Learn(Vector<UserKeyPressData> parsePattern) {
@@ -298,7 +320,6 @@ public class ServerCommunicationService extends IntentService {
 		}
 		pv.KeyPress = Math.round((float) pv.KeyPress / (float) pv.keyNum);
 		pv.keyTime = Math.round((float) pv.keyTime / (float) pv.keyNum);
-		Log.d("ACCEPTANCE", app.getUserPass() + " " + testPassword.toString());
 		return app.getUserPass().equals(testPassword.toString()) && app.getLearnedValue().matches(pv);
 	}
 

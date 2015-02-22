@@ -25,22 +25,22 @@ public class LearnedValue extends PatternValue {
 
 	public boolean matches(PatternValue pv) {
 		int req = 0;
-		if (this.testTime - this.diffTestTime < pv.testTime && this.testTime + this.diffTestTime > pv.testTime) {
+		if (this.testTime - this.diffTestTime <= pv.testTime && this.testTime + this.diffTestTime >= pv.testTime) {
 			req++;
 		}
-		if (this.keyNum - this.diffKeyNum < pv.keyNum && this.keyNum + this.diffKeyNum > pv.keyNum) {
+		if (this.keyNum - this.diffKeyNum <= pv.keyNum && this.keyNum + this.diffKeyNum >= pv.keyNum) {
 			req++;
 		}
-		if (this.specNum - this.diffSpecNum < pv.specNum && this.specNum + this.diffSpecNum > pv.specNum) {
+		if (this.specNum - this.diffSpecNum <= pv.specNum && this.specNum + this.diffSpecNum >= pv.specNum) {
 			req++;
 		}
-		if (this.KeyPress - this.diffAvgKeyPress < pv.KeyPress && this.KeyPress + this.diffAvgKeyPress > pv.KeyPress) {
+		if (this.KeyPress - this.diffAvgKeyPress <= pv.KeyPress && this.KeyPress + this.diffAvgKeyPress >= pv.KeyPress) {
 			req++;
 		}
-		if (this.keyTime - this.diffAvgkeyTime < pv.keyTime && this.keyTime + this.diffAvgkeyTime > pv.keyTime) {
+		if (this.keyTime - this.diffAvgkeyTime <= pv.keyTime && this.keyTime + this.diffAvgkeyTime >= pv.keyTime) {
 			req++;
 		}
-		return req > 2;
+		return req > 4;
 	}
 
 	@Override

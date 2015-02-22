@@ -68,11 +68,11 @@ public final class SelectActionFragment_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        sel_add_new_learning_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_learning_data));
-        sel_add_new_test_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_test_data));
         sel_server_port = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_port));
-        sel_server_ip = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_ip));
         sel_start = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_start));
+        sel_add_new_test_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_test_data));
+        sel_server_ip = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_ip));
+        sel_add_new_learning_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_learning_data));
         if (sel_add_new_learning_data!= null) {
             sel_add_new_learning_data.setOnClickListener(new OnClickListener() {
 
