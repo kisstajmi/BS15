@@ -5,11 +5,15 @@
 
 package com.nng.bs15;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import com.nng.bs15.R.layout;
@@ -18,8 +22,8 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
-public final class SelectActionFragment_
-    extends com.nng.bs15.SelectActionFragment
+public final class RegisterDatasFragment_
+    extends com.nng.bs15.RegisterDatasFragment
     implements HasViews, OnViewChangedListener
 {
 
@@ -46,13 +50,14 @@ public final class SelectActionFragment_
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         contentView_ = super.onCreateView(inflater, container, savedInstanceState);
         if (contentView_ == null) {
-            contentView_ = inflater.inflate(layout.fragment_select_action, container, false);
+            contentView_ = inflater.inflate(layout.fragment_register_datas, container, false);
         }
         return contentView_;
     }
 
     private void init_(Bundle savedInstanceState) {
         OnViewChangedNotifier.registerOnViewChangedListener(this);
+        inputMethodManager = ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE));
         app = BS15Application_.getInstance();
     }
 
@@ -62,63 +67,50 @@ public final class SelectActionFragment_
         onViewChangedNotifier_.notifyViewChanged(this);
     }
 
-    public static SelectActionFragment_.FragmentBuilder_ builder() {
-        return new SelectActionFragment_.FragmentBuilder_();
+    public static RegisterDatasFragment_.FragmentBuilder_ builder() {
+        return new RegisterDatasFragment_.FragmentBuilder_();
     }
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        sel_server_port = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_port));
-        sel_start = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_start));
-        sel_add_new_test_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_test_data));
-        sel_server_ip = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.sel_server_ip));
-        sel_add_new_learning_data = ((Button) hasViews.findViewById(com.nng.bs15.R.id.sel_add_new_learning_data));
-        if (sel_add_new_learning_data!= null) {
-            sel_add_new_learning_data.setOnClickListener(new OnClickListener() {
+        reg_text = ((EditText) hasViews.findViewById(com.nng.bs15.R.id.reg_text));
+        reg_save = ((Button) hasViews.findViewById(com.nng.bs15.R.id.reg_save));
+        keyboardView = ((BS15KeyBoardView) hasViews.findViewById(com.nng.bs15.R.id.keyboard));
+        if (reg_save!= null) {
+            reg_save.setOnClickListener(new OnClickListener() {
 
 
                 @Override
                 public void onClick(View view) {
-                    SelectActionFragment_.this.onClick(view);
+                    RegisterDatasFragment_.this.onClick(view);
                 }
 
             }
             );
         }
-        if (sel_add_new_test_data!= null) {
-            sel_add_new_test_data.setOnClickListener(new OnClickListener() {
+        if (reg_text!= null) {
+            reg_text.setOnTouchListener(new OnTouchListener() {
 
 
                 @Override
-                public void onClick(View view) {
-                    SelectActionFragment_.this.onClick(view);
+                public boolean onTouch(View view, MotionEvent event) {
+                    return RegisterDatasFragment_.this.onTouch(view, event);
                 }
 
             }
             );
         }
-        if (sel_start!= null) {
-            sel_start.setOnClickListener(new OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    SelectActionFragment_.this.onClick(view);
-                }
-
-            }
-            );
-        }
+        afterInject();
     }
 
     public static class FragmentBuilder_
-        extends FragmentBuilder<SelectActionFragment_.FragmentBuilder_, com.nng.bs15.SelectActionFragment>
+        extends FragmentBuilder<RegisterDatasFragment_.FragmentBuilder_, com.nng.bs15.RegisterDatasFragment>
     {
 
 
         @Override
-        public com.nng.bs15.SelectActionFragment build() {
-            SelectActionFragment_ fragment_ = new SelectActionFragment_();
+        public com.nng.bs15.RegisterDatasFragment build() {
+            RegisterDatasFragment_ fragment_ = new RegisterDatasFragment_();
             fragment_.setArguments(args);
             return fragment_;
         }

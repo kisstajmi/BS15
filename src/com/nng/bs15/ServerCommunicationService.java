@@ -213,6 +213,7 @@ public class ServerCommunicationService extends IntentService {
 		avg.keyTime += act.keyTime;
 	}
 
+	// TODO for more optimal working we could use btree later
 	private PatternValue Learn(Vector<UserKeyPressData> parsePattern) {
 		UserKeyPressData prevdata;
 		UserKeyPressData actdata;

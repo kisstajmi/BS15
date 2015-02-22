@@ -1,55 +1,63 @@
 package com.nng.bs15;
 
-import org.androidannotations.annotations.AfterInject;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.App;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.SystemService;
+import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.inputmethodservice.Keyboard;
+import android.media.AudioManager;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.TextView;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 @EFragment(R.layout.fragment_register_datas)
-public class RegisterDatasFragment extends Fragment implements OnClickListener, OnTouchListener {
+public class RegisterDatasFragment extends Fragment implements OnClickListener, OnTouchListener, OnKeyListener {
 
 	@ViewById(R.id.reg_text)
-	EditText reg_text;
+	EditText			reg_text;
 	@ViewById(R.id.reg_save)
-	Button reg_save;
-	@ViewById(R.id.reg_keyboard)
-	GridLayout reg_keyboard;
+	Button				reg_save;
+	// @ViewById(R.id.reg_keyboard)
+	// GridLayout reg_keyboard;
+	@ViewById(R.id.keyboard)
+	BS15KeyBoardView	keyboardView;
 	@App
-	BS15Application app;
+	BS15Application		app;
+	Keyboard			keyboard;
+	@SystemService
+	InputMethodManager	inputMethodManager;
 
-	@AfterInject
+	@AfterViews
 	protected void afterInject() {
-		for (KEYS key : KEYS.values()) {
-			TextView v = new TextView(getActivity());
-			v.setText(key.getText());
-			v.setTag(key);
-			v.setOnClickListener(this);
-			v.setOnTouchListener(this);
 
-			int numOfCol = reg_keyboard.getColumnCount();
-			int numOfRow = (int) Math.ceil(Float.valueOf(KEYS.values().length) / 10f);
-			reg_keyboard.setRowCount(numOfRow);
-			reg_keyboard.addView(v);
-		}
+		// Create the Keyboard
+		keyboard = new Keyboard(getActivity(), R.xml.qwerty);
+
+		// Attach the keyboard to the view
+		keyboardView.setKeyboard(keyboard);
+
+		keyboardView.setOnKeyboardActionListener(new BS15OnKeyboardActionListener(getActivity(), keyboard, keyboardView, reg_text));
 	}
 
-	boolean isShift = false;
-	String password = "";
+	boolean	isShift		= false;
+	String	password	= "";
 
 	@Click(R.id.reg_save)
 	@Override
@@ -62,28 +70,28 @@ public class RegisterDatasFragment extends Fragment implements OnClickListener, 
 			getFragmentManager().popBackStack();
 			SaveMethod();
 			break;
-		default:
-			if (v.getTag() instanceof KEYS) {
-				KEYS key = (KEYS) v.getTag();
-				switch (key) {
-				case KEY_SHIFT:
-					isShift = true;
-					break;
-				case KEY_BACKSPACE:
-					password = password.substring(0, password.length() - 2);
-					break;
-				default:
-					if (isShift) {
-						password += String.valueOf(key.getValue()).toUpperCase();
-						isShift = false;
-					} else {
-						password += String.valueOf(key.getValue());
-					}
-					break;
-				}
-				reg_text.setText(password);
-			}
-			break;
+		// default:
+		// if (v.getTag() instanceof KEYS) {
+		// KEYS key = (KEYS) v.getTag();
+		// switch (key) {
+		// case KEY_SHIFT:
+		// isShift = true;
+		// break;
+		// case KEY_BACKSPACE:
+		// password = password.substring(0, password.length() - 2);
+		// break;
+		// default:
+		// if (isShift) {
+		// password += String.valueOf(key.getValue()).toUpperCase();
+		// isShift = false;
+		// } else {
+		// password += String.valueOf(key.getValue());
+		// }
+		// break;
+		// }
+		// reg_text.setText(password);
+		// }
+		// break;
 		}
 	}
 
@@ -100,10 +108,82 @@ public class RegisterDatasFragment extends Fragment implements OnClickListener, 
 		return false;
 	}
 
+	@Touch(R.id.reg_text)
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		// TODO Auto-generated method stub
-		return false;
+		showKeyboardWithAnimation();
+		return true;
+	}
+
+	private void showKeyboardWithAnimation() {
+		if (keyboardView.getVisibility() == View.GONE || keyboardView.getVisibility() == View.INVISIBLE) {
+			Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_in_bottom);
+			keyboardView.showWithAnimation(animation);
+			keyboardView.setVisibility(View.VISIBLE);
+			reg_text.requestFocus();
+		}
+	}
+
+	private void hideKeyboardWithAnimation() {
+		if (keyboardView.getVisibility() == View.VISIBLE) {
+			Animation animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_out_bottom);
+			keyboardView.hideWithAnimation(animation);
+		}
+	}
+
+	@Override
+	public boolean onKey(View v, int keyCode, KeyEvent event) {
+		boolean ret = false;
+		// playClick(keyCode);
+		// String text = reg_text.getText().toString();
+		// switch (keyCode) {
+		// case Keyboard.KEYCODE_SHIFT:
+		// keyboard.setShifted(true);
+		// keyboardView.invalidateAllKeys();
+		// ret = true;
+		// break;
+		// case Keyboard.KEYCODE_DONE:
+		// hideKeyboardWithAnimation();
+		// keyboard.setShifted(false);
+		// ret = true;
+		// break;
+		// case Keyboard.KEYCODE_DELETE:
+		// text = text.substring(0, text.length() - 1);
+		// keyboard.setShifted(false);
+		// ret = true;
+		// break;
+		// case KeyEvent.KEYCODE_ENTER:
+		// keyboard.setShifted(false);
+		// ret = true;
+		// break;
+		// default:
+		// char code = (char) keyCode;
+		// if (Character.isLetter(code) && keyboard.isShifted()) {
+		// code = Character.toUpperCase(code);
+		// }
+		// text += code;
+		// keyboard.setShifted(false);
+		// ret = true;
+		// }
+		// reg_text.setText(text);
+		return ret;
+	}
+
+	private void playClick(int keyCode) {
+		AudioManager am = (AudioManager) getActivity().getSystemService(getActivity().AUDIO_SERVICE);
+		switch (keyCode) {
+		case 32:
+			am.playSoundEffect(AudioManager.FX_KEYPRESS_SPACEBAR);
+			break;
+		case Keyboard.KEYCODE_DONE:
+			am.playSoundEffect(AudioManager.FX_KEYPRESS_RETURN);
+			break;
+		case Keyboard.KEYCODE_DELETE:
+			am.playSoundEffect(AudioManager.FX_KEYPRESS_DELETE);
+			break;
+		default:
+			am.playSoundEffect(AudioManager.FX_KEYPRESS_STANDARD);
+		}
 	}
 
 }

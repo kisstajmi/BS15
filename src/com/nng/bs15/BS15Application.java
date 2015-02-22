@@ -25,7 +25,6 @@ public class BS15Application extends Application {
 	 * 
 	 */
 	public BS15Application() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

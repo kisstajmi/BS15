@@ -7,8 +7,6 @@ package com.nng.bs15;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import com.nng.bs15.R.layout;
@@ -63,13 +61,6 @@ public final class MainActivity_
 
     public static MainActivity_.IntentBuilder_ intent(android.support.v4.app.Fragment supportFragment) {
         return new MainActivity_.IntentBuilder_(supportFragment);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(com.nng.bs15.R.menu.main, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     public static class IntentBuilder_
